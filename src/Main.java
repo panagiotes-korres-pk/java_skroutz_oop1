@@ -1,4 +1,6 @@
-import java.util. Scanner;
+import java.util.Scanner;
+
+
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -10,11 +12,8 @@ public class Main {
         int eshopCount = 0;
         int itemInEshopCount = 0;
 
-        items[itemCount] = new Item("16363", "chair", "epipla", "ikea");
-        itemCount++;
-
-        eshops[eshopCount] = new Eshop("pinterest", "188016985", "pinterest@gmail.com");
-        eshopCount++;
+        items[itemCount++] = new Item("16363", "chair", "epipla", "ikea");
+        eshops[eshopCount++] = new Eshop("pinterest", "188016985", "pinterest@gmail.com");
 
         for (int i = 0; i < eshopCount; i++) {
             System.out.println(eshops[i].getAfm() + " " + eshops[i].getWebshiteName());
@@ -58,31 +57,70 @@ public class Main {
 
         if (selectedEshop == null) {
             System.out.println("not found");
+            return;
         } else {
             System.out.println(selectedEshop.getWebshiteName());
         }
 
-        for (int i = 0; i < itemInEshopCount; i++) {
-            if (listings[i].getEshop() == selectedEshop) {
+        showProducts(listings, itemInEshopCount, selectedEshop);
 
-                Item item1 = listings[i].getItem();
+        System.out.println("give me a barcode");
+        String code = sc.nextLine();
+        boolean foundItem = false;
 
-                System.out.println(item1.getBarcode());
-                System.out.println(item1.getName());
-                System.out.println(item1.getCategory());
+
+        for (int i =0 ; i <itemInEshopCount; i ++){
+            if (listings[i].getEshop() == selectedEshop &&
+            listings[i].getItem().getBarcode().equals(code)){
+                System.out.println("dose apothema");
+
+                System.out.println("dose neo apothema");
+                int newQuantity = sc.nextInt();
+                sc.nextLine();
+                listings[i].setQuantity(newQuantity);
+                foundItem = true;
+                break;
+
+            }
+        }
+        if (!foundItem) {
+            System.out.println("den vrethike to proion");
+        }
+    }
+
+
+
+
+
+
+
+
+    public static void showProducts(ItemInEshop[] listings, int count, Eshop eshop) {
+        for (int i = 0; i < count; i++) {
+            if (listings[i].getEshop() == eshop) {
+
+                Item item = listings[i].getItem();
+
+                System.out.println(item.getBarcode());
+                System.out.println(item.getName());
+                System.out.println(item.getCategory());
                 System.out.println(listings[i].getQuantity());
 
-                if (item1 instanceof Clothes) {
-                    Clothes c = (Clothes) item1;
+                if (item instanceof Clothes) {
+                    Clothes c = (Clothes) item;
                     System.out.println(c.getSize());
                     System.out.println(c.getColor());
                 }
-                if (item1 instanceof Shoe) {
-                    Shoe  sh = (Shoe) item1;
-                    System.out.println(sh.getSize());
-                    System.out.println(sh.getColor());
+
+                if (item instanceof Shoe) {
+                    Shoe s = (Shoe) item;
+                    System.out.println(s.getSize());
+                    System.out.println(s.getColor());
+                    System.out.println("---------------");
                 }
             }
         }
-    }
+
+        }
 }
+
