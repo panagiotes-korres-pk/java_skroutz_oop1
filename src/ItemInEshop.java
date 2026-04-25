@@ -2,9 +2,9 @@ public class ItemInEshop  {
      Item item;
      Eshop eshop;
      private int quantity;
-     private  int price;
+     private  double price;
 
-    public ItemInEshop(Item item, Eshop eshop, int quantity, int price) {
+    public ItemInEshop(Item item, Eshop eshop, int quantity, double price) {
         this.item = item;
         this.eshop = eshop;
         this.quantity = quantity;
@@ -35,11 +35,11 @@ public class ItemInEshop  {
         this.quantity = quantity;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 }
