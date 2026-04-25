@@ -1,11 +1,11 @@
-public class Product {
+public class Item {
 
     private String barcode;
     private String name;
     private String category;
     private String brandName;
 
-    public Product(String barcode, String name, String category, String brandName) {
+    public Item(String barcode, String name, String category, String brandName) {
         this.barcode = barcode;
         this.name = name;
         this.category = category;

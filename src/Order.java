@@ -2,11 +2,11 @@ public class Order {
 
         private int id;
         private Customer customer;
-        private Product product;
+        private Item product;
         private Eshop eshop;
         private int quantity;
 
-        public Order(int id, Customer customer, Product product, Eshop eshop, int quantity) {
+        public Order(int id, Customer customer, Item product, Eshop eshop, int quantity) {
             this.id = id;
             this.customer = customer;
             this.product = product;

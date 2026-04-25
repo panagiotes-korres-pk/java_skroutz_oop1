@@ -1,4 +1,4 @@
-public class Shoe extends Product {
+public class Shoe extends Item {
     private int size;
     private String color;
 
