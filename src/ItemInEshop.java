@@ -1,3 +1,4 @@
+// Κλάση που συνδέει προϊόν με eshop
 public class ItemInEshop  {
      Item item;
      Eshop eshop;
