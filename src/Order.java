@@ -5,6 +5,7 @@ public class Order {
         private Item product;
         private Eshop eshop;
         private int quantity;
+        private  int price;
 
     public int getId() {
         return id;
@@ -18,6 +19,10 @@ public class Order {
         return product;
     }
 
+    public double getPrice() {
+        return price;
+    }
+
     public Eshop getEshop() {
         return eshop;
     }
@@ -26,12 +31,33 @@ public class Order {
         return quantity;
     }
 
-    public Order(int id, Customer customer, Item product, Eshop eshop, int quantity) {
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public void setProduct(Item product) {
+        this.product = product;
+    }
+
+    public void setEshop(Eshop eshop) {
+        this.eshop = eshop;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public Order(int id, Customer customer, Item product, Eshop eshop, int quantity , int price) {
             this.id = id;
             this.customer = customer;
             this.product = product;
             this.eshop = eshop;
             this.quantity = quantity;
+            this.price = price;
         }
 
         public void printOrder() {

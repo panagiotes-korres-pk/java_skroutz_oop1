@@ -1,5 +1,7 @@
 // δημιουργια scanner για input
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 
 
 public class it2024134 {
@@ -299,7 +301,8 @@ public class it2024134 {
                 loggedCustomer,
                 selectedListing.getItem(),
                 selectedListing.getEshop(),
-                buyQuantity
+                buyQuantity,
+                (int) selectedListing.getPrice()
         );
 
         orders[orderCount] = order;
@@ -379,7 +382,49 @@ public class it2024134 {
         }
 
 
+
+        try {
+            FileWriter writer = new FileWriter("eshops_report.txt");
+
+            for (int i = 0; i < eshopCount; i++) {
+                Eshop currentEshop = eshops[i];
+
+                int differentProducts = 0;
+                int totalOrders = 0;
+                double totalIncome = 0;
+
+                for (int j = 0; j < itemInEshopCount; j++) {
+                    if (listings[j].getEshop() == currentEshop) {
+                        differentProducts++;
+                    }
+                }
+
+                for (int j = 0; j < orderCount; j++) {
+                    if (orders[j].getEshop() == currentEshop) {
+                        totalOrders++;
+                        totalIncome += orders[j].getQuantity() * orders[j].getPrice();
+                    }
+                }
+
+                writer.write(
+                        currentEshop.getWebshiteName() + ", " +
+                                currentEshop.getAfm() + ", " +
+                                differentProducts + ", " +
+                                totalOrders + ", " +
+                                totalIncome + " euro\n"
+                );
+            }
+
+            writer.close();
+            System.out.println("To arxeio eshops_report.txt dimiourgithike");
+
+        } catch (IOException e) {
+            System.out.println("Sfalma kata tin apothikeusi sto arxeio");
+        }
+
+
     }
+
 
    // μεθοδοσ εμφανισης προιοντος ενος eshop
     public static void showProducts(ItemInEshop[] listings, int count, Eshop eshop) {
@@ -410,5 +455,7 @@ public class it2024134 {
         }
 
         }
+
+
 }
 
