@@ -6,7 +6,27 @@ public class Order {
         private Eshop eshop;
         private int quantity;
 
-        public Order(int id, Customer customer, Item product, Eshop eshop, int quantity) {
+    public int getId() {
+        return id;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public Item getProduct() {
+        return product;
+    }
+
+    public Eshop getEshop() {
+        return eshop;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public Order(int id, Customer customer, Item product, Eshop eshop, int quantity) {
             this.id = id;
             this.customer = customer;
             this.product = product;

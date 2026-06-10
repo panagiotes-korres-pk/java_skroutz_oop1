@@ -12,6 +12,7 @@ public class it2024134 {
         ItemInEshop[] listings = new ItemInEshop[200];
         CartItem [] cart = new CartItem[100];
         Customer [] customers = new Customer[100];
+        Order [] orders = new Order[100];
 
         // μετρητες στοιχειων
         int itemCount = 0;
@@ -19,6 +20,7 @@ public class it2024134 {
         int itemInEshopCount = 0;
         int cartCount = 0;
         int customerCount = 0;
+        int orderCount = 0;
 
         // καταχωριση αρχικων δεδομενων
         items[itemCount++] = new Item("16363", "chair", "epipla", "ikea");
@@ -291,12 +293,88 @@ public class it2024134 {
         }
 
         System.out.println("I paraggelia oloklirothike");
+
+        Order order = new Order(
+                orderCount + 1,
+                loggedCustomer,
+                selectedListing.getItem(),
+                selectedListing.getEshop(),
+                buyQuantity
+        );
+
+        orders[orderCount] = order;
+        orderCount++;
+
+        order.printOrder();
+
+
         System.out.println("Neo apothema:");
 
         for (int i = 0; i < cartCount; i++) {
             System.out.println("Product: " + cart[i].getItemInEshop().getItem().getName());
             System.out.println("Website: " + cart[i].getItemInEshop().getEshop().getWebshiteName());
             System.out.println("New stock: " + cart[i].getItemInEshop().getQuantity());
+            System.out.println("----------------");
+        }
+
+    // 4η λειτουργια
+
+        System.out.println("Dose username gia istoriko paraggelion:");
+        String searchUsername = sc.nextLine();
+
+        boolean foundOrder = false;
+
+        for (int i = 0; i < orderCount; i++) {
+            if (orders[i].getCustomer().getUsername().equals(searchUsername)) {
+                orders[i].printOrder();
+                foundOrder = true;
+            }
+        }
+
+        if (!foundOrder) {
+            System.out.println("Den vrethikan paraggelies gia auton ton pelati");
+        }
+
+        System.out.println("Synoliki anaφορά e-shops:");
+
+        for (int i = 0; i < itemInEshopCount; i++) {
+            System.out.println("Website: " + listings[i].getEshop().getWebshiteName());
+            System.out.println("Product: " + listings[i].getItem().getName());
+            System.out.println("Stock: " + listings[i].getQuantity());
+            System.out.println("Price: " + listings[i].getPrice());
+            System.out.println("----------------");
+        }
+
+        System.out.println("Synoliki anaφορά proionton:");
+
+        for (int i = 0; i < itemCount; i++) {
+            Item currentItem = items[i];
+
+            int shopCount = 0;
+            double minPrice = Double.MAX_VALUE;
+            int orderTimes = 0;
+
+            for (int j = 0; j < itemInEshopCount; j++) {
+                if (listings[j].getItem() == currentItem) {
+                    shopCount++;
+
+                    if (listings[j].getPrice() < minPrice) {
+                        minPrice = listings[j].getPrice();
+                    }
+                }
+            }
+
+            for (int j = 0; j < orderCount; j++) {
+                if (orders[j].getProduct() == currentItem) {
+                    orderTimes++;
+                }
+            }
+
+            System.out.println("Barcode: " + currentItem.getBarcode());
+            System.out.println("Name: " + currentItem.getName());
+            System.out.println("Eshops: " + shopCount);
+            System.out.println("Lowest price: " + minPrice);
+            System.out.println("Orders: " + orderTimes);
             System.out.println("----------------");
         }
 
