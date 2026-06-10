@@ -2,7 +2,7 @@
 import java.util.Scanner;
 
 
-public class Main {
+public class it2024134 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -66,10 +66,9 @@ public class Main {
         System.out.println(price);
 
 
-
         //  Αναζητηση eshop με ΑΦΜ ή website
         System.out.println("Dose AFM i website:");
-        String search = sc.nextLine();
+        String search = sc.nextLine().trim();
 
         Eshop selectedEshop = null;
 
@@ -88,15 +87,15 @@ public class Main {
         }
         // εμφανιση προιοντων του eshop
         showProducts(listings, itemInEshopCount, selectedEshop);
-       // ενημερωση αποθεματος προιοντος
+        // ενημερωση αποθεματος προιοντος
         System.out.println("give me a barcode");
         String code = sc.nextLine();
         boolean foundItem = false;
 
 
-        for (int i =0 ; i <itemInEshopCount; i ++){
+        for (int i = 0; i < itemInEshopCount; i++) {
             if (listings[i].getEshop() == selectedEshop &&
-            listings[i].getItem().getBarcode().equals(code)){
+                    listings[i].getItem().getBarcode().equals(code)) {
                 System.out.println("dose apothema");
 
                 System.out.println("dose neo apothema");
@@ -124,13 +123,77 @@ public class Main {
         if (!foundItem) {
             System.out.println("den vrethike to proion");
         }
+
+        // 3η λειτουργια
+
+        System.out.println("dose onoma i katigoria");
+        String SearchProducts = sc.nextLine();
+
+        for (int i = 0; i < itemCount; i++) {
+            Item currentItem = items[i];
+            if (currentItem.getName().equalsIgnoreCase(SearchProducts)
+                    || currentItem.getCategory().equalsIgnoreCase(SearchProducts)) {
+                int shopCount = 0;
+                double minPrice = Double.MAX_VALUE;
+
+                for (int j = 0; j < itemInEshopCount; j++) {
+                    if (listings[j].getItem() == currentItem) {
+                        shopCount++;
+                        if (listings[j].getPrice() < minPrice) {
+                            minPrice = listings[j].getPrice();
+                        }
+                    }
+                }
+
+                System.out.println("Barcode: " + currentItem.getBarcode());
+                System.out.println("Name: " + currentItem.getName());
+                System.out.println("Shops: " + shopCount);
+                System.out.println("Lowest Price: " + minPrice);
+                System.out.println("-------------------");
+            }
+        }
+
+        System.out.println("Dose barcode");
+        String selectBarcode = sc.nextLine();
+        Item selectedItem = null;
+        for (int i = 0; i < itemCount; i++) {
+            if (items[i].getBarcode().equals(selectBarcode)){
+                selectedItem = items[i];
+                break;
+            }
+        }
+
+        if (selectedItem == null){
+            System.out.println("item not found");
+            return;
+        }
+
+        System.out.println("available eshops ");
+        for (int i = 0; i < itemInEshopCount; i++) {
+            if (listings[i].getItem() == selectedItem) {
+                System.out.println("Website: "
+                        + listings[i].getEshop().getWebshiteName());
+
+                System.out.println("Product: "
+                        + listings[i].getItem().getName());
+
+                System.out.println("Price: "
+                        + listings[i].getPrice());
+
+                System.out.println("Stock: "
+                        + listings[i].getQuantity());
+
+                System.out.println("----------------");
+            }
+        }
+
+        System.out.println("dose website apo opou thes na agoraseis");
+        String selectedWebsite = sc.nextLine().trim();
+
+
+
+
     }
-
-
-
-
-
-
 
    // μεθοδοσ εμφανισης προιοντος ενος eshop
     public static void showProducts(ItemInEshop[] listings, int count, Eshop eshop) {
