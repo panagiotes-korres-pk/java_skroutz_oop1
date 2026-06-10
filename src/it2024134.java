@@ -10,11 +10,15 @@ public class it2024134 {
         Item[] items = new Item[100];
         Eshop[] eshops = new Eshop[50];
         ItemInEshop[] listings = new ItemInEshop[200];
+        CartItem [] cart = new CartItem[100];
+        Customer [] customers = new Customer[100];
 
         // μετρητες στοιχειων
         int itemCount = 0;
         int eshopCount = 0;
         int itemInEshopCount = 0;
+        int cartCount = 0;
+        int customerCount = 0;
 
         // καταχωριση αρχικων δεδομενων
         items[itemCount++] = new Item("16363", "chair", "epipla", "ikea");
@@ -29,6 +33,12 @@ public class it2024134 {
         Item item = items[0];
         Eshop eshop = eshops[0];
 
+        // Δοκιμαστικός χρήστη
+        customers[customerCount++] =
+                new Customer("Panos",
+                        "panos@gmail.com",
+                        "panos",
+                        "1234");
         int quantity = 50;
         int price = 20;
         boolean found = false;
@@ -190,7 +200,105 @@ public class it2024134 {
         System.out.println("dose website apo opou thes na agoraseis");
         String selectedWebsite = sc.nextLine().trim();
 
+        System.out.println("dose posotia");
+        int  buyQuantity = sc.nextInt();
+        sc.nextLine();
 
+        ItemInEshop selectedListing = null;
+
+        for (int i = 0; i < itemInEshopCount; i++) {
+            if (listings[i].getItem() == selectedItem &&
+            listings[i].getEshop().getWebshiteName().equalsIgnoreCase(selectedWebsite)){
+                selectedListing =  listings[i];
+                break;
+            }
+        }
+
+        if(selectedListing == null){
+            System.out.println("den vrethike proin sto eshop auto");
+            return;
+        }if ( buyQuantity <= 0){
+            System.out.println("Mi egkyro apothema");
+            return;
+        }
+
+        if (buyQuantity > selectedListing.getQuantity()){
+            System.out.println("den yoarxei arketo apothema");
+            return ;
+        }
+
+        cart[cartCount] = new CartItem(selectedListing , buyQuantity);
+        cartCount++;
+
+        System.out.println("To proion mpike sto kalathi");
+
+
+        for (int i = 0; i < cartCount; i++) {
+            System.out.println("Product: " + cart[i].getItemInEshop().getItem().getName());
+            System.out.println("Website: " + cart[i].getItemInEshop().getEshop().getWebshiteName());
+            System.out.println("Price: " + cart[i].getItemInEshop().getPrice());
+            System.out.println("Quantity: " + cart[i].getQuantity());
+            System.out.println("----------------");
+        }
+
+
+
+        System.out.println("kalathi");
+        System.out.println("Product: " + selectedListing.getItem().getName());
+        System.out.println("Website: " + selectedListing.getEshop().getWebshiteName());
+        System.out.println("Price: " + selectedListing.getPrice());
+        System.out.println("Quantity: " + buyQuantity);
+
+        System.out.println("Login");
+        System.out.println("Username:");
+        String username = sc.nextLine();
+
+        System.out.println("Password:");
+        String password = sc.nextLine();
+
+        Customer loggedCustomer = null;
+
+        for (int i = 0; i < customerCount; i++) {
+            if (customers[i].getUsername().equals(username)
+                    && customers[i].getPassword().equals(password)) {
+
+                loggedCustomer = customers[i];
+                break;
+            }
+        }
+
+        if (loggedCustomer == null) {
+            System.out.println("Lathos username i password");
+            return;
+        }
+
+        System.out.println("Kalos irthes " + loggedCustomer.getName());
+
+        System.out.println("theleies na epivevaioseiw paraggelia yes/no");
+        String confirm = sc.nextLine();
+
+        if (!confirm.equalsIgnoreCase("Yes")){
+            System.out.println("i paraggelia akirothike");
+            return;
+        }
+
+        // meiosi apothematos
+
+        for (int i = 0; i < cartCount; i++) {
+            ItemInEshop listing = cart[i].getItemInEshop();
+            int newstock = listing.getQuantity() - cart[i].getQuantity();
+            listing.setQuantity(newstock);
+        }
+
+        System.out.println("I paraggelia oloklirothike");
+        System.out.println("Neo apothema:");
+
+        for (int i = 0; i < cartCount; i++) {
+            System.out.println("Product: " + cart[i].getItemInEshop().getItem().getName());
+            System.out.println("Website: " + cart[i].getItemInEshop().getEshop().getWebshiteName());
+            System.out.println("New stock: " + cart[i].getItemInEshop().getQuantity());
+            System.out.println("----------------");
+        }
 
 
     }
