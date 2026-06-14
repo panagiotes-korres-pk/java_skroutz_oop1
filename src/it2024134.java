@@ -24,9 +24,18 @@ public class it2024134 {
         int customerCount = 0;
         int orderCount = 0;
 
-        // καταχωριση αρχικων δεδομενων
+        // καταχωριση αρχικων προιοντων
         items[itemCount++] = new Item("16363", "chair", "epipla", "ikea");
+        items[itemCount++] = new Item("22222", "table", "epipla", "ikea");
+        items[itemCount++] = new Shoe("33333", "sneaker", "shoes",  "nike" , 42 , "black");
+        items[itemCount++] = new Shoe("44444", "tshirt", "clothes",  "balenciaga" , 40 , "blue");
+
+
+
         eshops[eshopCount++] = new Eshop("pinterest", "188016985", "pinterest@gmail.com");
+        eshops[eshopCount++] = new Eshop("skroutz", "123456789", "skroutz@gmail.com");
+        eshops[eshopCount++] = new Eshop("jysk", "15791012", "jysk@gmail.com");
+
 
         // εμφανιση διαθεσιμων eshops
         for (int i = 0; i < eshopCount; i++) {
@@ -73,6 +82,13 @@ public class it2024134 {
             listings[itemInEshopCount] = new ItemInEshop(items[0], eshops[0], 49, 25);
             itemInEshopCount++;
         }
+
+        listings[itemInEshopCount++] = new ItemInEshop(items[0] , eshops[1] , 30 , 20);
+        listings[itemInEshopCount++] = new ItemInEshop(items[1] , eshops[2] , 15 , 40);
+        listings[itemInEshopCount++] = new ItemInEshop(items[2] , eshops[2] , 10 , 80);
+        listings[itemInEshopCount++] = new ItemInEshop(items[3] , eshops[1] , 25 , 15);
+
+
         // εμφανιση στοιχειων καταχωρισης
         System.out.println(eshop.getWebshiteName());
         System.out.println(item.getName());
@@ -81,7 +97,7 @@ public class it2024134 {
 
 
         //  Αναζητηση eshop με ΑΦΜ ή website
-        System.out.println("Dose AFM i website:");
+        System.out.println("Dose AFM i website tou e-shop:");
         String search = sc.nextLine().trim();
 
         Eshop selectedEshop = null;
@@ -94,7 +110,7 @@ public class it2024134 {
         }
         // ελεγχος αν βρεθηκε το eshop
         if (selectedEshop == null) {
-            System.out.println("not found");
+            System.out.println("Den  vrethike e-shop me auto to AFM i website:");
             return;
         } else {
             System.out.println(selectedEshop.getWebshiteName());
@@ -102,7 +118,7 @@ public class it2024134 {
         // εμφανιση προιοντων του eshop
         showProducts(listings, itemInEshopCount, selectedEshop);
         // ενημερωση αποθεματος προιοντος
-        System.out.println("give me a barcode");
+        System.out.println("Dose barcode proiontos");
         String code = sc.nextLine();
         boolean foundItem = false;
 
@@ -110,12 +126,10 @@ public class it2024134 {
         for (int i = 0; i < itemInEshopCount; i++) {
             if (listings[i].getEshop() == selectedEshop &&
                     listings[i].getItem().getBarcode().equals(code)) {
-                System.out.println("dose apothema");
-
-                System.out.println("dose neo apothema");
+                    System.out.println("Dose neo apothema");
 
                 if (!sc.hasNextInt()) {
-                    System.out.println("Prepei na doseis arithmo");
+                    System.out.println("Sfalma : Prepei na doseis egkyro arithmo");
                     return;
                 }
 
@@ -123,7 +137,7 @@ public class it2024134 {
                 sc.nextLine();
 
                 if (newQuantity < 0) {
-                    System.out.println("Mi egkyro apothema");
+                    System.out.println("Sfalma : To apothema den mporei na einai arnitiko ");
                     return;
                 }
                 //ενημερωση ποσοτητας
@@ -135,12 +149,12 @@ public class it2024134 {
         }
         // ελεγχος αν βρεθηκε το προιον
         if (!foundItem) {
-            System.out.println("den vrethike to proion");
+            System.out.println("Den vrethike proion me auto to barcode");
         }
 
         // 3η λειτουργια
 
-        System.out.println("dose onoma i katigoria");
+        System.out.println("Dose onoma i katigoria proiontos");
         String SearchProducts = sc.nextLine();
 
         for (int i = 0; i < itemCount; i++) {
@@ -167,7 +181,7 @@ public class it2024134 {
             }
         }
 
-        System.out.println("Dose barcode");
+        System.out.println("Dose barcode tou proiontos pou epilegeis :");
         String selectBarcode = sc.nextLine();
         Item selectedItem = null;
         for (int i = 0; i < itemCount; i++) {
@@ -178,11 +192,11 @@ public class it2024134 {
         }
 
         if (selectedItem == null){
-            System.out.println("item not found");
+            System.out.println("Den vrethike proion me auto to barcode");
             return;
         }
 
-        System.out.println("available eshops ");
+        System.out.println("Diathesima e-shops gia to epilegmeno proion :");
         for (int i = 0; i < itemInEshopCount; i++) {
             if (listings[i].getItem() == selectedItem) {
                 System.out.println("Website: "
@@ -201,10 +215,10 @@ public class it2024134 {
             }
         }
 
-        System.out.println("dose website apo opou thes na agoraseis");
+        System.out.println("Dose website apo to opoio thes na agoraseis :");
         String selectedWebsite = sc.nextLine().trim();
 
-        System.out.println("dose posotia");
+        System.out.println("Dose ton arithmo temaxion pou thes na agoraseis :");
         int  buyQuantity = sc.nextInt();
         sc.nextLine();
 
@@ -219,7 +233,7 @@ public class it2024134 {
         }
 
         if(selectedListing == null){
-            System.out.println("den vrethike proin sto eshop auto");
+            System.out.println("Den vrethike to proin sto epilegmeno eshop :");
             return;
         }if ( buyQuantity <= 0){
             System.out.println("Mi egkyro apothema");
@@ -227,14 +241,14 @@ public class it2024134 {
         }
 
         if (buyQuantity > selectedListing.getQuantity()){
-            System.out.println("den yoarxei arketo apothema");
+            System.out.println("Den yparxei  arketo apothema gia tin zitoumeni posotita :");
             return ;
         }
 
         cart[cartCount] = new CartItem(selectedListing , buyQuantity);
         cartCount++;
 
-        System.out.println("To proion mpike sto kalathi");
+        System.out.println("To proion prostethike epitixos sto kalathi :");
 
 
         for (int i = 0; i < cartCount; i++) {
@@ -247,17 +261,17 @@ public class it2024134 {
 
 
 
-        System.out.println("kalathi");
+        System.out.println("==== PERIOXOMENA KALATHIOU ====");
         System.out.println("Product: " + selectedListing.getItem().getName());
         System.out.println("Website: " + selectedListing.getEshop().getWebshiteName());
         System.out.println("Price: " + selectedListing.getPrice());
         System.out.println("Quantity: " + buyQuantity);
 
-        System.out.println("Login");
-        System.out.println("Username:");
+        System.out.println("==== SYNDESI PELATI (Login) ====");
+        System.out.println("Dose Username:");
         String username = sc.nextLine();
 
-        System.out.println("Password:");
+        System.out.println("Dose Password:");
         String password = sc.nextLine();
 
         Customer loggedCustomer = null;
@@ -272,17 +286,17 @@ public class it2024134 {
         }
 
         if (loggedCustomer == null) {
-            System.out.println("Lathos username i password");
+            System.out.println("Lathos username i password i syndesi apetixe .");
             return;
         }
 
-        System.out.println("Kalos irthes " + loggedCustomer.getName());
+        System.out.println("Kalos irthes, " + loggedCustomer.getName());
 
-        System.out.println("theleies na epivevaioseiw paraggelia yes/no");
+        System.out.println("Theleis na epivevaioseis tin paraggelia? (yes/no)");
         String confirm = sc.nextLine();
 
-        if (!confirm.equalsIgnoreCase("Yes")){
-            System.out.println("i paraggelia akirothike");
+        if (!confirm.equalsIgnoreCase("yes")){
+            System.out.println("i paraggelia akyrothike apo ton xristi.");
             return;
         }
 
@@ -294,7 +308,7 @@ public class it2024134 {
             listing.setQuantity(newstock);
         }
 
-        System.out.println("I paraggelia oloklirothike");
+        System.out.println("I paraggelia oloklirothike me epityxia.");
 
         Order order = new Order(
                 orderCount + 1,
@@ -311,7 +325,7 @@ public class it2024134 {
         order.printOrder();
 
 
-        System.out.println("Neo apothema:");
+        System.out.println("==== ENIMEROMENO APOTHEMA ====");
 
         for (int i = 0; i < cartCount; i++) {
             System.out.println("Product: " + cart[i].getItemInEshop().getItem().getName());
@@ -322,7 +336,7 @@ public class it2024134 {
 
     // 4η λειτουργια
 
-        System.out.println("Dose username gia istoriko paraggelion:");
+        System.out.println("Dose to username gia emfanisi istorikou paraggelion :");
         String searchUsername = sc.nextLine();
 
         boolean foundOrder = false;
@@ -335,10 +349,10 @@ public class it2024134 {
         }
 
         if (!foundOrder) {
-            System.out.println("Den vrethikan paraggelies gia auton ton pelati");
+            System.out.println("Den vrethikan paraggelies gia to sygkekirmeno username.");
         }
 
-        System.out.println("Synoliki anaφορά e-shops:");
+        System.out.println("==== SYNOLIKI ANAFORA e-shops ====");
 
         for (int i = 0; i < itemInEshopCount; i++) {
             System.out.println("Website: " + listings[i].getEshop().getWebshiteName());
@@ -348,7 +362,7 @@ public class it2024134 {
             System.out.println("----------------");
         }
 
-        System.out.println("Synoliki anaφορά proionton:");
+        System.out.println("==== SYNOLIKI ANAFORA PROIONTON ====");
 
         for (int i = 0; i < itemCount; i++) {
             Item currentItem = items[i];
@@ -416,10 +430,10 @@ public class it2024134 {
             }
 
             writer.close();
-            System.out.println("To arxeio eshops_report.txt dimiourgithike");
+            System.out.println("To arxeio 'eshops_report.txt' dimiourgithike me epituxia.");
 
         } catch (IOException e) {
-            System.out.println("Sfalma kata tin apothikeusi sto arxeio");
+            System.out.println("Parousiastike Sfalma kata tin apothikeusi sto arxeio.");
         }
 
 
