@@ -24,14 +24,18 @@ public class it2024134 {
         int customerCount = 0;
         int orderCount = 0;
 
-        // καταχωριση αρχικων προιοντων
+        // Δημιουργια δεδομενων για ελεγχο των λειτουργιων του συστηματος
+
+
+        // αρχικα προιοντα
+
         items[itemCount++] = new Item("16363", "chair", "epipla", "ikea");
         items[itemCount++] = new Item("22222", "table", "epipla", "ikea");
         items[itemCount++] = new Shoe("33333", "sneaker", "shoes",  "nike" , 42 , "black");
         items[itemCount++] = new Shoe("44444", "tshirt", "clothes",  "balenciaga" , 40 , "blue");
 
 
-
+        // αρχικα e-shops
         eshops[eshopCount++] = new Eshop("pinterest", "188016985", "pinterest@gmail.com");
         eshops[eshopCount++] = new Eshop("skroutz", "123456789", "skroutz@gmail.com");
         eshops[eshopCount++] = new Eshop("jysk", "15791012", "jysk@gmail.com");
@@ -83,6 +87,7 @@ public class it2024134 {
             itemInEshopCount++;
         }
 
+        // επιλεον καταχωρισεις προοιντων σε διαφορετικα e-shops
         listings[itemInEshopCount++] = new ItemInEshop(items[0] , eshops[1] , 30 , 20);
         listings[itemInEshopCount++] = new ItemInEshop(items[1] , eshops[2] , 15 , 40);
         listings[itemInEshopCount++] = new ItemInEshop(items[2] , eshops[2] , 10 , 80);
@@ -95,8 +100,11 @@ public class it2024134 {
         System.out.println(quantity);
         System.out.println(price);
 
-
+        // =================
+        // 2η ΛΕΙΤΟΥΡΓΙΑ
         //  Αναζητηση eshop με ΑΦΜ ή website
+        // και ενημερωση του αποθεματος προιοντος
+        // ==================
         System.out.println("Dose AFM i website tou e-shop:");
         String search = sc.nextLine().trim();
 
@@ -108,16 +116,16 @@ public class it2024134 {
                 break;
             }
         }
-        // ελεγχος αν βρεθηκε το eshop
+        // ελεγχος αν βρεθηκε το e-shop με ΑΦΜ ή website
         if (selectedEshop == null) {
             System.out.println("Den  vrethike e-shop me auto to AFM i website:");
             return;
         } else {
             System.out.println(selectedEshop.getWebshiteName());
         }
-        // εμφανιση προιοντων του eshop
+        // Εμφανιση ολων των προιοντων που υπαρχουν στο επιλεγμενο eshop
         showProducts(listings, itemInEshopCount, selectedEshop);
-        // ενημερωση αποθεματος προιοντος
+        // επιλογη προιοντος με barcode για ενημερωση αποθεματος
         System.out.println("Dose barcode proiontos");
         String code = sc.nextLine();
         boolean foundItem = false;
@@ -140,7 +148,7 @@ public class it2024134 {
                     System.out.println("Sfalma : To apothema den mporei na einai arnitiko ");
                     return;
                 }
-                //ενημερωση ποσοτητας
+                // Ενημερωση της ποσοτητας αποθεματος του προιοντος
                 listings[i].setQuantity(newQuantity);
                 foundItem = true;
                 break;
@@ -152,11 +160,16 @@ public class it2024134 {
             System.out.println("Den vrethike proion me auto to barcode");
         }
 
-        // 3η λειτουργια
 
+        // ===============
+        // 3η ΛΕΙΤΟΥΡΓΙΑ
+       // Αναζητηση προιοντων , προσθηκη στο καλαθι και δημιουργια παραγγελιας
+       // ================
+
+        // Ο πελατης αναζητα προοιον με βαση το ονομα ή την κατηγορια
         System.out.println("Dose onoma i katigoria proiontos");
         String SearchProducts = sc.nextLine();
-
+        // ελεγχος ολων τον προιοντων για να βρεθουν οσα ταιριαζουν στην αναζητηση
         for (int i = 0; i < itemCount; i++) {
             Item currentItem = items[i];
             if (currentItem.getName().equalsIgnoreCase(SearchProducts)
@@ -215,9 +228,11 @@ public class it2024134 {
             }
         }
 
-        System.out.println("Dose website apo to opoio thes na agoraseis :");
+        // ο πελατης επιλεγει  απο ποιο e-shop θα αγορασει το προιον
+        System.out.println("Dose website tou e-shop apo to opoio thes na agoraseis :");
         String selectedWebsite = sc.nextLine().trim();
 
+        // εισαγωγη τησ ποσοτητας που θελει να αγορασει ο πελατης
         System.out.println("Dose ton arithmo temaxion pou thes na agoraseis :");
         int  buyQuantity = sc.nextInt();
         sc.nextLine();
@@ -267,6 +282,8 @@ public class it2024134 {
         System.out.println("Price: " + selectedListing.getPrice());
         System.out.println("Quantity: " + buyQuantity);
 
+
+        // ελεγχος στοιχειων συνεδσης του πελατη
         System.out.println("==== SYNDESI PELATI (Login) ====");
         System.out.println("Dose Username:");
         String username = sc.nextLine();
@@ -310,6 +327,8 @@ public class it2024134 {
 
         System.out.println("I paraggelia oloklirothike me epityxia.");
 
+
+        // δημιουργια και αποθηκευση της νεας παραγγελιας
         Order order = new Order(
                 orderCount + 1,
                 loggedCustomer,
@@ -334,7 +353,10 @@ public class it2024134 {
             System.out.println("----------------");
         }
 
-    // 4η λειτουργια
+    // ================
+    // 4η ΛΕΙΤΟΥΡΓΙΑ
+    // Αναφορες και ιστορικο παραγγελιων
+    // ================
 
         System.out.println("Dose to username gia emfanisi istorikou paraggelion :");
         String searchUsername = sc.nextLine();
@@ -395,7 +417,10 @@ public class it2024134 {
             System.out.println("----------------");
         }
 
-
+        // ====================
+        // 5η ΛΕΙΤΟΥΡΓΙΑ
+        // Αποθηκευση στοιχειων των e-shops σε αρχειο κειμενου
+       // ====================
 
         try {
             FileWriter writer = new FileWriter("eshops_report.txt");
@@ -440,7 +465,7 @@ public class it2024134 {
     }
 
 
-   // μεθοδοσ εμφανισης προιοντος ενος eshop
+   // Εμφανιση ολων των προιοντων που ανηκουν σε ενα συγκεκριμενο e-shop
     public static void showProducts(ItemInEshop[] listings, int count, Eshop eshop) {
         for (int i = 0; i < count; i++) {
             if (listings[i].getEshop() == eshop) {
