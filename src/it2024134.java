@@ -32,7 +32,7 @@ public class it2024134 {
         items[itemCount++] = new Item("16363", "chair", "epipla", "ikea");
         items[itemCount++] = new Item("22222", "table", "epipla", "ikea");
         items[itemCount++] = new Shoe("33333", "sneaker", "shoes",  "nike" , 42 , "black");
-        items[itemCount++] = new Shoe("44444", "tshirt", "clothes",  "balenciaga" , 40 , "blue");
+        items[itemCount++] = new Clothes("44444", "tshirt", "clothes",  "balenciaga" , 40 , "blue");
 
 
         // αρχικα e-shops
@@ -248,10 +248,10 @@ public class it2024134 {
         }
 
         if(selectedListing == null){
-            System.out.println("Den vrethike to proin sto epilegmeno eshop :");
+            System.out.println("Den vrethike to proion sto epilegmeno eshop.");
             return;
         }if ( buyQuantity <= 0){
-            System.out.println("Mi egkyro apothema");
+            System.out.println("Mi egkyri posotita");
             return;
         }
 
